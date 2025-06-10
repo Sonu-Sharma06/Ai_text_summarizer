@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Text Summarizer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: rgba(20, 25, 78, 0.912);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #f9fafb;
+      padding: 2.5rem;
+      border-radius: 20px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e293b;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+    }
+
+    .auth-bar {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      color:black;
+    }
+
+    .auth-bar a {
+      color: #3b82f6;
+      text-decoration: none;
+      margin: 0 0.5rem;
+      font-weight: 600;
+    }
+
+    label {
+      font-weight: 600;
+      color: #111827;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      min-height: 160px;
+      resize: vertical;
+      background-color: #ffffff;
+      color: #1f2937;
+      transition: border 0.2s ease;
+    }
+
+    textarea:focus {
+      border-color: #3b82f6;
+      outline: none;
+    }
+
+    button {
+      margin-top: 1.2rem;
+      width: 100%;
+      background: #3b82f6;
+      color: white;
+      padding: 0.85rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #2563eb;
+    }
+
+    .summary-box {
+      margin-top: 2rem;
+      background: #ffffff;
+      padding: 1.2rem 1rem;
+      border-radius: 12px;
+      border-left: 4px solid #3b82f6;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      color: #111827;
+    }
+
+    .summary-box h2 {
+      margin-top: 0;
+      color: #1d4ed8;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AI Text Summarizer</h1>
+
+    <div class="auth-bar">
+      {% if user.is_authenticated %}
+        Welcome,<strong>{{ user.username }}</strong> |
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a> |
+        <a href="{% url 'register' %}">Register</a>
+      {% endif %}
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      <label for="id_text">Paste your notes below:</label>
+      {{ form.text }}
+      <button type="submit">Summarize</button>
+    </form>
+
+    {% if summary %}
+      <div class="summary-box">
+        <h2>Summary:</h2>
+        <p>{{ summary }}</p>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
