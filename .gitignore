@@ -1,0 +1,25 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+db.sqlite3
+media/
+staticfiles/
+local_settings.py
+
+# Environment
+.env
+
+# VS Code / IDEs
+.vscode/
+.idea/
+
+# Node (if you ever use frontend tools)
+node_modules/
+
+# OS generated
+.DS_Store
+Thumbs.db
