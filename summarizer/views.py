@@ -37,7 +37,7 @@ def home(request):
         form = TextForm(request.POST)
         if form.is_valid():
             text = form.cleaned_data["text"]
-            summary = summarize(text, max_length=120, min_length=10, do_sample=False)[0]['summary_text']
+            summary = summarize(text, max_length=250, min_length=50, do_sample=False)[0]['summary_text']
     else:
         form = TextForm()
     
@@ -47,3 +47,7 @@ def home(request):
 def logout_view(request):
     logout(request)
     return redirect('/login/')
+
+
+
+#https://ai-text-summarizer-4ui1.onrender.com
